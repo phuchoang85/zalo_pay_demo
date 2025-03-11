@@ -46,7 +46,7 @@ router.post("/", async (req, res, next) => {
       amount: amount, // giá tiền
       description: description, // mô tả
       bank_code: "",
-      callback_url: "https://9f9b-1-54-207-235.ngrok-free.app//paments/callback",
+      callback_url: "https://zalo-pay-demo.onrender.com/payments/callback",
       // cái này khi tạo thanh toán thành công sẽ chuyển sang api để xử lý dữ liệu cho db của mình
     };
 
