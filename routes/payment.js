@@ -19,7 +19,7 @@ router.post("/", async (req, res, next) => {
     const { amount, urlCalbackSuccess, dataSave, description, nameUser } =
       req.body;
 
-    if (!amount || !urlCalbackSuccess || !nameUser) {
+    if (!amount || !nameUser) {
       return res.status(400).json({ error: "Thiếu dữ liệu đầu vào" });
     }
 
