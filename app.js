@@ -27,8 +27,12 @@ app.use(cors({
   allowedHeaders: ["Content-Type", "Authorization"]
 }));
 
-app.use('/demo', indexRouter);
-app.use('/demo/payments', paymentRouter);
+var demoRouter = express.Router();
+
+demoRouter.use('/', indexRouter); 
+demoRouter.use('/payments', paymentRouter);  
+
+app.use('/demo', demoRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
