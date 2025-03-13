@@ -3,9 +3,6 @@ var express = require("express");
 const moment = require("moment");
 var router = express.Router();
 const CryptoJS = require('crypto-js');
-router.get("/", function (req, res, next) {
-  res.send("respond with a resource");
-});
 
 const config = {
   app_id: "2553",
