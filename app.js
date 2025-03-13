@@ -20,14 +20,15 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/demo', indexRouter);
-app.use('/demo/payments', paymentRouter);
 
 app.use(cors({
   origin: "*",
   methods: ["GET", "POST", "PUT", "DELETE"],
   allowedHeaders: ["Content-Type", "Authorization"]
 }));
+
+app.use('/demo', indexRouter);
+app.use('/demo/payments', paymentRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
