@@ -10,6 +10,13 @@ var paymentRouter = require("./routes/payment");
 
 var app = express();
 
+app.use(cors({
+  origin: "*", // Chấp nhận mọi nguồn gọi API
+  methods: "GET,POST,PUT,DELETE,OPTIONS",
+  allowedHeaders: "*", // Chấp nhận tất cả headers
+  credentials: false // Nếu không dùng cookies hoặc tokens, đổi thành true nếu cần
+}));
+
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "jade");
