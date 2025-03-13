@@ -20,8 +20,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
-app.use("/demo/", indexRouter);
-app.use("/demo/payments", paymentRouter);
+app.use("/", indexRouter);
+app.use("/payments", paymentRouter);
 
 app.use((req, res, next) => {
   console.log(`Received ${req.method} request for ${req.url}`);

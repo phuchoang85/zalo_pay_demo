@@ -43,7 +43,7 @@ router.post("/", async (req, res, next) => {
       amount: amount, // giá tiền
       description: description, // mô tả
       bank_code: "",
-      callback_url: "http://api.library.xuongthuchanh.io.vn/demo/payments/callback",
+      callback_url: "https://zalo-pay-demo.newonlineee.xyz/payments/callback",
       // cái này khi tạo thanh toán thành công sẽ chuyển sang api để xử lý dữ liệu cho db của mình
     };
 
