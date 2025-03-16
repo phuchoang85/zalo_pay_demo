@@ -5,9 +5,9 @@ var router = express.Router();
 const CryptoJS = require('crypto-js');
 
 const config = {
-  app_id: "2553",
-  key1: "PcY4iZIKFCIdgZvA6ueMcMHHUbRLYjPL",
-  key2: "kLtgPl8HHhfvMuDHPwKfgfsY4Ydm9eIz",
+  app_id: "2554",
+  key1: "sdngKKJmqEMzvh5QQcdD2A9XBSKUNaYn",
+  key2: "trMrHtvjo6myautxDUiAcYsVtaeQ8nhf",
   endpoint: "https://sb-openapi.zalopay.vn/v2/create",
 };
 
@@ -43,7 +43,7 @@ router.post("/", async (req, res, next) => {
       amount: amount, // giá tiền
       description: description, // mô tả
       bank_code: "",
-      callback_url: "https://zalo-pay-demo.newonlineee.xyz/payments/callback",
+      callback_url: "https://zalo-pay-demo.onrender.com/payments/callback",
       // cái này khi tạo thanh toán thành công sẽ chuyển sang api để xử lý dữ liệu cho db của mình
     };
 
