@@ -5,10 +5,10 @@ var router = express.Router();
 const CryptoJS = require('crypto-js');
 
 const config = {
-  app_id: "2554",
-  key1: "sdngKKJmqEMzvh5QQcdD2A9XBSKUNaYn",
-  key2: "trMrHtvjo6myautxDUiAcYsVtaeQ8nhf",
-  endpoint: "https://sb-openapi.zalopay.vn/v2/create",
+  app_id: "xxxxx",
+  key1: "xxxxxxxxxxx",
+  key2: "xxxxxxxxxxxx",
+  endpoint: "xxxxxxxxxxxx",
 };
 
 router.post("/", async (req, res, next) => {
@@ -43,7 +43,7 @@ router.post("/", async (req, res, next) => {
       amount: amount, // giá tiền
       description: description, // mô tả
       bank_code: "",
-      callback_url: "https://zalo-pay-demo.onrender.com/payments/callback",
+      callback_url: "https://xxxxxxxxx/payments/callback",
       // cái này khi tạo thanh toán thành công sẽ chuyển sang api để xử lý dữ liệu cho db của mình
     };
 
@@ -64,12 +64,20 @@ router.post("/", async (req, res, next) => {
       order.item;
     order.mac = CryptoJS.HmacSHA256(data, config.key1).toString();
 
+
+    ///
+    /// các bạn có thể thêm status waiting ngay đây nè
+    ///
+
     // Gửi request tạo đơn hàng đến ZaloPay
     const orderResponse = await axios.post(config.endpoint, null, {
       params: order,
     });
     if (orderResponse.status !== 200 || !orderResponse.data) {
       console.error("Lỗi từ ZaloPay:", orderResponse.data);
+        ///
+    /// lỗi thì các bạn chỉnh lại db ngay đây 
+    ///
       return res.status(400).json({ data: orderResponse.data.message });
     }
     return res.status(200).json({ data: orderResponse.data });
@@ -88,10 +96,11 @@ router.post("/callback", async (req, res) => {
       return res.status(400).json({ error: "Dữ liệu callback không hợp lệ" });
     }
 
-    const data = JSON.parse(JSON.parse(dataStr).item)[0];
+    console.log(dataStr)
+    console.log("mac 1 =", reqMac)
 
     let mac = CryptoJS.HmacSHA256(dataStr, config.key2).toString();
-    console.log("mac =", mac);
+    console.log("mac 2=", mac);
 
     // kiểm tra callback hợp lệ (đến từ ZaloPay server)
     if (reqMac !== mac) {
@@ -101,14 +110,20 @@ router.post("/callback", async (req, res) => {
     } else {
       // thanh toán thành công
       // merchant cập nhật trạng thái cho đơn hàng
-      let dataJson = JSON.parse(dataStr, config.key2);
+      let dataJson = JSON.parse(dataStr);
+      console.log(dataJson)
+
+      let data = JSON.parse(dataJson.item);
+      console.log(data)
+
       console.log(
-        "update order's status = success where app_trans_id =",
+        "\n update order's status = success where app_trans_id =",
         dataJson["app_trans_id"]
       );
 
       // TODO: Cập nhật trạng thái đơn hàng trong DB
       // xử lý dữ liệu ở  đây lưu dữ liệu db vân vân
+      
 
       result.return_code = 1;
       result.return_message = "success";
